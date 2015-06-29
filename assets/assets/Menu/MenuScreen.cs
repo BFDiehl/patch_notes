@@ -33,6 +33,7 @@ public class MenuScreen : MonoBehaviour {
 
 	public void checkInput() {
 		InputManager.PlayerInput playerInput = InputManager.getInstance().getPlayerInput(PlayerScript.PlayerNumber.PLAYER_ONE);
+		Debug.Log(playerInput.getLeftStickVertical());
 		float leftStickVertical = playerInput.getLeftStickVertical();
 		bool aButtonPressed = playerInput.getAButtonDown();
 
