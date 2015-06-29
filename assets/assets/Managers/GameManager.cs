@@ -40,6 +40,10 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 
+	public void setGameTimeInSeconds(int gameTimeInSeconds) {
+		this.gameTimeInSeconds = gameTimeInSeconds;
+	}
+
     private IEnumerator countdown() {
         while (gameTimeInSeconds > 0) {
             yield return new WaitForSeconds(1f); 
