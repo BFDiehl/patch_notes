@@ -14,7 +14,6 @@ public class PlayerScript : MonoBehaviour {
 	
 
 	private PlayerNumber playerNumber;
-	private CharacterController characterController;
 	private InputManager.PlayerInput playerInput;
     public float playerSpeed;
 
@@ -66,11 +65,10 @@ public class PlayerScript : MonoBehaviour {
 		playerInput = InputManager.getInstance().getPlayerInput(playerNumber);
 
 		this.bullet = ((GameObject)Resources.Load("Player/Bullet")).GetComponent<Rigidbody>();
-		this.GetComponent<Renderer>().sharedMaterial = 
+		this.renderer.sharedMaterial = 
 			(Material)Resources.Load("Player/Mat_Player_" + playerNumber.GetHashCode(), typeof(Material));
 
 		this.transform.position = GameObject.Find("PLAYER " + playerNumber.GetHashCode() + " SPAWN").transform.position;
-		this.characterController = GetComponent<CharacterController>();
 	}
 
 	public void takeDamage(PlayerNumber damagingPlayer, int damage) {
@@ -103,8 +101,7 @@ public class PlayerScript : MonoBehaviour {
 	private void checkMovement() {
 		Vector3 moveDir = new Vector3(playerInput.getLeftStickHoriztonal(), 0, -playerInput.getLeftStickVertical());
 		moveDir.Normalize();
-		moveDir = new Vector3(moveDir.x, -1, moveDir.z);
-		characterController.Move(moveDir * Time.deltaTime * playerSpeed);
+		transform.Translate(moveDir * Time.deltaTime * playerSpeed, Space.World);
 	}
 
 	/**
