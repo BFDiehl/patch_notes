@@ -38,7 +38,7 @@ public class BulletScript : MonoBehaviour {
 		this.firingPlayer = firingPlayer;
 		this.bulletDamage = bulletDamage;
 		this.bulletHealth = bulletHealth;
-		this.renderer.sharedMaterial = 
+		this.GetComponent<Renderer>().sharedMaterial = 
 			(Material)Resources.Load("Player/Mat_Player_" + firingPlayer.GetHashCode(), typeof(Material));
 	}
 

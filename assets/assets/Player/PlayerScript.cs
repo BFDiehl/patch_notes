@@ -65,7 +65,7 @@ public class PlayerScript : MonoBehaviour {
 		playerInput = InputManager.getInstance().getPlayerInput(playerNumber);
 
 		this.bullet = ((GameObject)Resources.Load("Player/Bullet")).GetComponent<Rigidbody>();
-		this.renderer.sharedMaterial = 
+		this.GetComponent<Renderer>().sharedMaterial = 
 			(Material)Resources.Load("Player/Mat_Player_" + playerNumber.GetHashCode(), typeof(Material));
 
 		this.transform.position = GameObject.Find("PLAYER " + playerNumber.GetHashCode() + " SPAWN").transform.position;
@@ -101,7 +101,7 @@ public class PlayerScript : MonoBehaviour {
 	private void checkMovement() {
 		Vector3 moveDir = new Vector3(playerInput.getLeftStickHoriztonal(), 0, -playerInput.getLeftStickVertical());
 		moveDir.Normalize();
-		transform.Translate(moveDir * Time.deltaTime * playerSpeed, Space.World);
+		transform.GetComponent<CharacterController>().SimpleMove(moveDir * playerSpeed);
 	}
 
 	/**
@@ -129,7 +129,7 @@ public class PlayerScript : MonoBehaviour {
 
 		clone.velocity = fireDirection * bulletSpeed;
 		clone.gameObject.GetComponent<BulletScript>().init(playerNumber, bulletDamage, bulletHealth);
-		Physics.IgnoreCollision(clone.GetComponent<Collider>(), this.GetComponent<Collider>());
+		Physics.IgnoreCollision(clone.GetComponent<Collider>(), this.GetComponent<CharacterController>());
 
  		yield return new WaitForSeconds(secondsBetweenShots);
 		allowFire = true;

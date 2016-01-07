@@ -9,6 +9,8 @@ Library/
 # ===================================== #
 ExportedObj/
 obj/
+.idea/
+*.iml
 *.svd
 *.userprefs
 /*.csproj
