@@ -186,4 +186,10 @@ public class PlayerScript : MonoBehaviour {
 	public void increaseBulletsDestroyed() {
 		bulletsDestroyed++;
 	}
+
+	//PATCHES START HERE
+
+	public void SizeDownPatch(){
+		 transform.localScale -= new Vector3(1.0F, 1.0F, 1.0F);
+	}
 }
