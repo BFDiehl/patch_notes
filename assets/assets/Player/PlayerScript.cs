@@ -123,6 +123,8 @@ public class PlayerScript : MonoBehaviour {
  	 */
 
 	private IEnumerator Fire(Vector3 fireDirection) {
+		//test new patches here
+		//new BulletSpeedUpPatch().execute(this.playerNumber);
 		allowFire = false;
 		// Instantiate the bullet at the position and rotation of this transform
 		Rigidbody clone = (Rigidbody)Instantiate(bullet, transform.position, transform.rotation);
@@ -189,7 +191,38 @@ public class PlayerScript : MonoBehaviour {
 
 	//PATCHES START HERE
 
+
+	//Buffs
 	public void SizeDownPatch(){
 		 transform.localScale -= new Vector3(1.0F, 1.0F, 1.0F);
 	}
+
+	public void SpeedUpPatch(){
+		 playerSpeed += 5;
+	}
+
+	public void BulletSizeUpPatch(){
+		//Bug with this one. The size of the bullet doesn't reset when the play button in unity is hit and then started again.
+		//Pretty sure this is because the size of the bullet is never solidified when the game starts. So if we do that we will be golden.
+		bullet.transform.localScale += new Vector3(1.0F, 1.0F, 1.0F);
+	}
+
+	public void BulletHealthUpPatch(){
+		bulletHealth++;
+	}
+
+	public void BulletSpeedUpPatch(){
+		bulletSpeed += 5;
+	}
+
+		public void RateOfFireUpPatch(){
+		secondsBetweenShots -= (secondsBetweenShots/2);
+	}
+
+	//Reworks
+	public void MinemakerPatch(){
+		 bulletSpeed = 0;
+	}
+
+
 }
