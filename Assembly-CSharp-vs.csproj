@@ -62,7 +62,14 @@
      <Compile Include="assets\assets\PointPockets\DamageDonePointPocket.cs" />
      <Compile Include="assets\assets\PointPockets\KillsPointPocket.cs" />
      <Compile Include="assets\assets\PointPockets\PointPocket.cs" />
+     <Compile Include="assets\assets\patches\Buffs\BulletHealthUpPatch.cs" />
+     <Compile Include="assets\assets\patches\Buffs\BulletSizeUpPatch.cs" />
+     <Compile Include="assets\assets\patches\Buffs\BulletSpeedUpPatch.cs" />
+     <Compile Include="assets\assets\patches\Buffs\RateOfFireUpPatch.cs" />
+     <Compile Include="assets\assets\patches\Buffs\SizeDownPatch.cs" />
+     <Compile Include="assets\assets\patches\Buffs\SpeedUpPatch.cs" />
      <Compile Include="assets\assets\patches\Patch.cs" />
+     <Compile Include="assets\assets\patches\Reworks\MinemakerPatch.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

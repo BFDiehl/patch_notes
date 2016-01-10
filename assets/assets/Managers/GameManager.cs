@@ -15,7 +15,6 @@ public class GameManager : MonoBehaviour {
 	private int currentPatchTime = 0;
 	private int timeBetweenPatches;
 	private ArrayList buffPatches = new ArrayList();
-	private ArrayList nerfPatches = new ArrayList();
 	private ArrayList reworkPatches = new ArrayList();
 
 	private ArrayList pointPockets = new ArrayList();
@@ -40,6 +39,15 @@ public class GameManager : MonoBehaviour {
         pointPockets.Add(new KillsPointPocket());
         pointPockets.Add(new BulletsDestroyedPointPocket());
         pointPockets.Add(new BulletDamageDonePointPocket());
+
+        buffPatches.Add(new BulletHealthUpPatch());
+        buffPatches.Add(new BulletSizeUpPatch());
+        buffPatches.Add(new BulletSpeedUpPatch());
+        buffPatches.Add(new RateOfFireUpPatch());
+        buffPatches.Add(new SpeedUpPatch());
+        buffPatches.Add(new SizeDownPatch());
+
+        reworkPatches.Add(new MinemakerPatch());
 	}
 
 	void OnLevelWasLoaded(int level) {
@@ -81,15 +89,14 @@ public class GameManager : MonoBehaviour {
         foreach (PlayerScript.PlayerNumber playerNumber in playerList) {
             int num = Random.Range(1,100);
             ArrayList patches;
-            if (num <= 15) {
+            if (num <= 10) {
                 patches = reworkPatches;
-            } else if (num <= 55) {
-                patches = buffPatches;
             } else {
-                patches = nerfPatches;
+                patches = buffPatches;
             }
-            Debug.Log("Applying patch to " + playerNumber);
-            //patches[Random.Range(0,(patches.length - 1))].execute(playerNumber);
+            Patch patch = (Patch)patches[Random.Range(0,(patches.Count - 1))];
+            Debug.Log("Applying " + patch.getName() + " patch to " + playerNumber);
+            patch.execute(playerNumber);
         }
         currentPatchTime = 0;
     }
