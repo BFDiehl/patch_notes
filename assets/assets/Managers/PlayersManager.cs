@@ -36,7 +36,6 @@ public class PlayersManager : MonoBehaviour {
 		playerObject = (GameObject)Resources.Load("Player/Player", typeof(GameObject));
 		playerList.Add(PlayerScript.PlayerNumber.PLAYER_ONE);
 		playerList.Add(PlayerScript.PlayerNumber.PLAYER_TWO);
-		playerList.Add(PlayerScript.PlayerNumber.PLAYER_THREE);
 	}
 
 	void OnLevelWasLoaded(int level) {

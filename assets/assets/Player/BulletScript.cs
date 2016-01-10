@@ -7,21 +7,28 @@ public class BulletScript : MonoBehaviour {
 	private int bulletDamage;
 	private PlayerScript.PlayerNumber firingPlayer;
 
-	void OnCollisionEnter (Collision col) {
+	void OnTriggerEnter (Collider col) {
 		PlayerScript collidedPlayer = col.gameObject.GetComponent<PlayerScript>();
 		BulletScript collidedBullet = col.gameObject.GetComponent<BulletScript>();
     	if(collidedPlayer != null) {
-            collidedPlayer.takeDamage(firingPlayer, bulletDamage);
-            Destroy(this.gameObject);
+            dealDamage(collidedPlayer);
         } else if(collidedBullet != null) {
-        	PlayerScript.PlayerNumber damagingPlayer = collidedBullet.getFiringPlayer();
-        	int collidedBulletDamage = collidedBullet.getBulletDamage();
-        	collidedBullet.takeDamage(firingPlayer, bulletDamage);
-        	takeDamage(damagingPlayer, collidedBulletDamage);
+        	dealDamage(collidedBullet);
         } else {
         	Destroy(this.gameObject);
         }
+    }
 
+    public void dealDamage(PlayerScript player) {
+        player.takeDamage(firingPlayer, bulletDamage);
+        Destroy(this.gameObject);
+    }
+
+    public void dealDamage(BulletScript bullet) {
+        PlayerScript.PlayerNumber damagingPlayer = bullet.getFiringPlayer();
+        int collidedBulletDamage = bullet.getBulletDamage();
+        bullet.takeDamage(firingPlayer, bulletDamage);
+        takeDamage(damagingPlayer, collidedBulletDamage);
     }
 
 	// Use this for initialization

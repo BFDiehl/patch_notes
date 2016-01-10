@@ -9,11 +9,12 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public int gameTimer;
+	public int timeBetweenPatches;
+
 	private bool inGame = false;
 	private int gameTimeInSeconds;
 
 	private int currentPatchTime = 0;
-	private int timeBetweenPatches;
 	private ArrayList buffPatches = new ArrayList();
 	private ArrayList reworkPatches = new ArrayList();
 
@@ -56,7 +57,6 @@ public class GameManager : MonoBehaviour {
 		if (level != 0) {
 			inGame = true;
 			gameTimeInSeconds = gameTimer * 60;
-			timeBetweenPatches = 10;
 			StartCoroutine(countdown());
 		}
 	}
@@ -89,7 +89,7 @@ public class GameManager : MonoBehaviour {
         foreach (PlayerScript.PlayerNumber playerNumber in playerList) {
             int num = Random.Range(1,100);
             ArrayList patches;
-            if (num <= 10) {
+            if (num <= 5) {
                 patches = reworkPatches;
             } else {
                 patches = buffPatches;

@@ -20,6 +20,7 @@ public class PlayerScript : MonoBehaviour {
     private Rigidbody bullet;
     public int bulletHealth;
 	public int bulletDamage;
+    public float bulletSize;
 	public float bulletSpeed;
 	public float bulletRange;
 	public float secondsBetweenShots;
@@ -69,6 +70,7 @@ public class PlayerScript : MonoBehaviour {
 			(Material)Resources.Load("Player/Mat_Player_" + playerNumber.GetHashCode(), typeof(Material));
 
 		this.transform.position = GameObject.Find("PLAYER " + playerNumber.GetHashCode() + " SPAWN").transform.position;
+		this.gameObject.layer = 8 + playerNumber.GetHashCode();
 	}
 
 	public void takeDamage(PlayerNumber damagingPlayer, int damage) {
@@ -101,7 +103,7 @@ public class PlayerScript : MonoBehaviour {
 	private void checkMovement() {
 		Vector3 moveDir = new Vector3(playerInput.getLeftStickHoriztonal(), 0, -playerInput.getLeftStickVertical());
 		moveDir.Normalize();
-		transform.GetComponent<CharacterController>().SimpleMove(moveDir * playerSpeed);
+		transform.GetComponent<CharacterController>().Move(moveDir * playerSpeed * Time.deltaTime);
 	}
 
 	/**
@@ -131,13 +133,11 @@ public class PlayerScript : MonoBehaviour {
 
 		clone.velocity = fireDirection * bulletSpeed;
 		clone.gameObject.GetComponent<BulletScript>().init(playerNumber, bulletDamage, bulletHealth);
-		Physics.IgnoreCollision(clone.GetComponent<Collider>(), this.GetComponent<CharacterController>());
+		clone.gameObject.layer = this.gameObject.layer;
+		clone.transform.localScale = new Vector3(bulletSize, bulletSize, bulletSize);
 
  		yield return new WaitForSeconds(secondsBetweenShots);
 		allowFire = true;
-		if(clone != null) {
-			Destroy(clone.gameObject, 2);
-		}
 	}
 
 	private void exitToMenu() {
@@ -202,6 +202,7 @@ public class PlayerScript : MonoBehaviour {
 	}
 
 	public void BulletSizeUpPatch(){
+	    bulletSize += 1.0f;
 		//Bug with this one. The size of the bullet doesn't reset when the play button in unity is hit and then started again.
 		//Pretty sure this is because the size of the bullet is never solidified when the game starts. So if we do that we will be golden.
 		bullet.transform.localScale += new Vector3(1.0F, 1.0F, 1.0F);
